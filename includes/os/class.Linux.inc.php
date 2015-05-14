@@ -94,7 +94,8 @@ class Linux extends OS
      */
     protected function _hostname()
     {
-        $this->sys->setHostname(trim(CommonFunctions::executeProgram('hostname')));
+        CommonFunctions::executeProgram('hostname', '', $result);
+        $this->sys->setHostname(trim($result));
         // if (PSI_USE_VHOST === true) {
         //     $this->sys->setHostname(getenv('SERVER_NAME'));
         // } else {
