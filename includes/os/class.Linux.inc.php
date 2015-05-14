@@ -94,17 +94,18 @@ class Linux extends OS
      */
     protected function _hostname()
     {
-        if (PSI_USE_VHOST === true) {
-            $this->sys->setHostname(getenv('SERVER_NAME'));
-        } else {
-            if (CommonFunctions::rfts('/proc/sys/kernel/hostname', $result, 1)) {
-                $result = trim($result);
-                $ip = gethostbyname($result);
-                if ($ip != $result) {
-                    $this->sys->setHostname(gethostbyaddr($ip));
-                }
-            }
-        }
+        $this->sys->setHostname(trim(CommonFunctions::executeProgram('hostname')));
+        // if (PSI_USE_VHOST === true) {
+        //     $this->sys->setHostname(getenv('SERVER_NAME'));
+        // } else {
+        //     if (CommonFunctions::rfts('/proc/sys/kernel/hostname', $result, 1)) {
+        //         $result = trim($result);
+        //         $ip = gethostbyname($result);
+        //         if ($ip != $result) {
+        //             $this->sys->setHostname(gethostbyaddr($ip));
+        //         }
+        //     }
+        // }
     }
 
     /**
